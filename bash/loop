@@ -40,4 +40,5 @@ fi
 while true; do
   $cmd
   sleep $sleep_time
+  echo
 done
