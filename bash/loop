@@ -1,9 +1,43 @@
 #!/bin/bash
 
-cmd=$*
-sleep_time=1;
+if [ $# == 1 ];then
+  cmd=$*
+  sleep_time=1
+else
+  while getopts ":s:c:" optname
+  do
+    case "$optname" in
+    "s")
+      sleep_time=$OPTARG
+    ;;
+  "c")
+    cmd=$OPTARG
+    ;;
+    "?")
+    echo "Unknown option $OPTARG"
+    ;;
+    ":")
+    echo "No argument value for option $OPTARG"
+    ;;
+    *)
+    # Should not occur
+    echo "Unknown error while processing options"
+  ;;
+        esac
+  done
+fi
+
+
+if [ 0"$sleep_time" = "0" ];then
+  sleep_time=1
+fi
+
+if [ 0"$cmd" = "0" ];then
+  echo no cmd specified
+  exit 1
+fi
 
 while true; do
- sleep $sleep_time 
- $cmd 
+  $cmd
+  sleep $sleep_time
 done
